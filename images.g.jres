@@ -1,19 +1,4 @@
 {
-    "image1": {
-        "data": "hwQQABAAAACZmZmZmZmZmZmZmZmZmZmZmZn5mZmZmZmZmZ+ZmZmZmZn5mZmZmZmZmZ+ZmZmZmZn5mZmZmZmZmf//////////+ZmZmZmZmZmZn5mZmZmZmZn5mZmZmZmZmZmfmZmZmZmZmfmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmQ==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "upArrow"
-    },
-    "image2": {
-        "data": "hwQQABAAAAAzMzPzMzMzMzMzM/8/MzMzMzPz8/MzMzMzMz/zMz8zMzPzM/Mz8zMzMz8z8zMzPzPzMzPzMzPzMz8zM/MzMzM/MzMz8zMzMzMzMzPzMzMzMzMzM/MzMzMzMzMz8zMzMzMzMzPzMzMzMzMzM/MzMzMzMzMz8zMzMzMzMzPzMzMzMw==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "leftArrow"
-    },
-    "image3": {
-        "data": "hwQQABAAAAB3d3f3d3d3d3d3d/d3d3d3d3d393d3d3d3d3f3d3d3d3d3d/d3d3d3d3d393d3d3d3d3f3d3d3d3d3d/d3d3d3f3d393d3d3/3d3f3d3f3d3d/d/d3d393d/d393f3d3d3d3/3d393d3d39/f3d3d3d3d3/393d3d3d3f3d3d3dw==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "rightArrow"
-    },
     ":fR{$,x1yPun~ub]ZN^}": {
         "data": "hwQQABAAAAAAAADgvgAAAAAAAO4eDwAAAO7uLhL/D+4gIuIu0v7/7iIiIt/t0v3uIiIi/i/S/e8iIuIiLiL+/9Ii8hvuIg7/IiL+H+z+D/AuIv8fzPAPAODu/x8M0A0AAAC8vQDQDQAAAMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
@@ -23,6 +8,21 @@
         "data": "hwQQABAAAABVVVVVVVVVVQUAAAAAAABQBQAAAAAAAFAFAAAAAAAAUAUAAAAAAABQBQAAAAAAAFAFAAAAAAAAUAUAAAAAAABQBQAAAAAAAFAFAAAAAAAAUAUAAAAAAABQBQAAAAAAAFAFAAAAAAAAUAUAAAAAAABQBQAAAAAAAFBVVVVVVVVVVQ==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "step"
+    },
+    "image1": {
+        "data": "hwQIAAgAAACZ+ZmZmZ+ZmfmZmZn/////+ZmZmZmfmZmZ+ZmZAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "upArrow"
+    },
+    "image2": {
+        "data": "hwQIAAgAAAAz8zMDM/8/A/Pz8wM/8zMPM/MzAzPzMwMz8zMDM/MzAw==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "leftArrow"
+    },
+    "image3": {
+        "data": "hwQIAAgAAAB393cHd/d3B3f3dwd393cHf/d3D/f39wd3/38Hd/d3Bw==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "rightArrow"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
