@@ -230,10 +230,10 @@ function printPattern (list: Image[]) {
     fbPlayer = sprites.create(assets.image`player`, SpriteKind.Player)
     fbPlayer.setPosition(currX, currY)
     fbPlayer.z = 99
-    for (let value of list) {
-        if (value.equals(assets.image`upArrow`)) {
+    for (let value2 of list) {
+        if (value2.equals(assets.image`upArrow`)) {
             currY += -20
-        } else if (value.equals(assets.image`leftArrow`)) {
+        } else if (value2.equals(assets.image`leftArrow`)) {
             currX += -20
         } else {
             currX += 20
@@ -246,8 +246,8 @@ function showP1Algo () {
     sprites.destroyAllSpritesOfKind(SpriteKind.P1Steps)
     p1x = 4
     p1y = 14
-    for (let value2 of player1algo) {
-        p1algoSprite = sprites.create(value2, SpriteKind.P1Steps)
+    for (let value22 of player1algo) {
+        p1algoSprite = sprites.create(value22, SpriteKind.P1Steps)
         p1algoSprite.setPosition(p1x, p1y)
         p1x += 8
     }
@@ -290,7 +290,7 @@ let tile = 0
 let patterns: Image[][] = []
 let pattern: Image[] = []
 let ROUNDS = 0
-game.showLongText("Use up, left, and right to create an algorithm for your player!\\n \\nPress A to check it.\\n \\nPress B if to erase the last step.", DialogLayout.Full)
+game.showLongText("Use up, left, and right to create an algorithm that matches the course!\\n \\nPress A to check it.\\n \\nPress B to erase the last step.", DialogLayout.Full)
 ROUNDS = 3
 pattern = []
 patterns = [[img`
