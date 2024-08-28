@@ -62,8 +62,12 @@ function checkP4Algo () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (checkP1Algo()) {
         runPattern()
-        game.setGameOverMessage(true, "Player 1 Wins!")
-        game.gameOver(true)
+        if (round + 1 < ROUNDS) {
+            startNewRound()
+        } else {
+            game.setGameOverMessage(true, "Player 1 Wins!")
+            game.gameOver(true)
+        }
     } else {
         info.player1.changeLifeBy(-1)
         player1algo = []
@@ -121,6 +125,16 @@ controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.P
     player2algo.push(assets.image`rightArrow`)
     showP2Algo()
 })
+function startNewRound () {
+    round += 1
+    pattern = patterns[round]
+    game.splash("Round " + (round + 1), "Course has " + pattern.length + " steps")
+    printPattern(pattern)
+    player1algo = []
+    player2algo = []
+    player3algo = []
+    player4algo = []
+}
 controller.player4.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (checkP4Algo()) {
         game.setGameOverMessage(true, "Player 4 Wins!")
@@ -205,10 +219,17 @@ function checkP2Algo () {
     return true
 }
 function printPattern (list: Image[]) {
+    sprites.destroyAllSpritesOfKind(SpriteKind.Player)
+    sprites.destroyAllSpritesOfKind(SpriteKind.P1Steps)
+    sprites.destroyAllSpritesOfKind(SpriteKind.P2Steps)
+    sprites.destroyAllSpritesOfKind(SpriteKind.P3Steps)
+    sprites.destroyAllSpritesOfKind(SpriteKind.P4Steps)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
     currX = 80
     currY = 100
     fbPlayer = sprites.create(assets.image`player`, SpriteKind.Player)
     fbPlayer.setPosition(currX, currY)
+    fbPlayer.z = 99
     for (let value of list) {
         if (value.equals(assets.image`upArrow`)) {
             currY += -20
@@ -258,28 +279,55 @@ let p4algoSprite: Sprite = null
 let p4y = 0
 let p4x = 0
 let player3algo: Image[] = []
+let player1algo: Image[] = []
 let player4algo: Image[] = []
 let p2algoSprite: Sprite = null
 let p2y = 0
 let player2algo: Image[] = []
 let p2x = 0
-let player1algo: Image[] = []
+let round = 0
 let tile = 0
+let patterns: Image[][] = []
 let pattern: Image[] = []
+let ROUNDS = 0
 game.showLongText("Use up, left, and right to create an algorithm for your player!\\n \\nPress A to check it.\\n \\nPress B if to erase the last step.", DialogLayout.Full)
+ROUNDS = 3
 pattern = []
-for (let index = 0; index < 6; index++) {
-    tile = randint(0, 2)
-    if (tile == 0) {
-        pattern.push(assets.image`upArrow`)
-    } else if (tile == 1) {
-        pattern.push(assets.image`leftArrow`)
-    } else {
-        pattern.push(assets.image`rightArrow`)
+patterns = [[img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `]]
+patterns = []
+for (let index = 0; index < ROUNDS; index++) {
+    pattern = []
+    for (let index = 0; index < 6; index++) {
+        tile = randint(0, 2)
+        if (tile == 0) {
+            pattern.push(assets.image`upArrow`)
+        } else if (tile == 1) {
+            pattern.push(assets.image`leftArrow`)
+        } else {
+            pattern.push(assets.image`rightArrow`)
+        }
     }
+    patterns.push(pattern)
 }
-printPattern(pattern)
-player1algo = []
+round = -1
+startNewRound()
 info.player1.setLife(3)
 info.player2.setLife(3)
 info.player3.setLife(3)
