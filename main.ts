@@ -61,6 +61,7 @@ function checkP4Algo () {
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (checkP1Algo()) {
+        runPattern()
         game.setGameOverMessage(true, "Player 1 Wins!")
         game.gameOver(true)
     } else {
@@ -159,6 +160,39 @@ controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         showP3Algo()
     }
 })
+function runPattern () {
+    patternSprite = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, fbPlayer, 0, 0)
+    patternSprite.z = -1
+    fbPlayer.follow(patternSprite, 25)
+    for (let value of pattern) {
+        patternSprite.setImage(value)
+        if (value.equals(assets.image`upArrow`)) {
+            patternSprite.y += -20
+        } else if (value.equals(assets.image`leftArrow`)) {
+            patternSprite.x += -20
+        } else {
+            patternSprite.x += 20
+        }
+        pause(1000)
+    }
+}
 function checkP2Algo () {
     if (player2algo.length != pattern.length) {
         return false
@@ -173,8 +207,8 @@ function checkP2Algo () {
 function printPattern (list: Image[]) {
     currX = 80
     currY = 100
-    mySprite = sprites.create(assets.image`player`, SpriteKind.Player)
-    mySprite.setPosition(currX, currY)
+    fbPlayer = sprites.create(assets.image`player`, SpriteKind.Player)
+    fbPlayer.setPosition(currX, currY)
     for (let value of list) {
         if (value.equals(assets.image`upArrow`)) {
             currY += -20
@@ -183,8 +217,8 @@ function printPattern (list: Image[]) {
         } else {
             currX += 20
         }
-        mySprite = sprites.create(assets.image`step`, SpriteKind.Player)
-        mySprite.setPosition(currX, currY)
+        projectile = sprites.create(assets.image`step`, SpriteKind.Player)
+        projectile.setPosition(currX, currY)
     }
 }
 function showP1Algo () {
@@ -212,9 +246,11 @@ controller.player3.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
 let p1algoSprite: Sprite = null
 let p1y = 0
 let p1x = 0
-let mySprite: Sprite = null
+let projectile: Sprite = null
 let currY = 0
 let currX = 0
+let fbPlayer: Sprite = null
+let patternSprite: Sprite = null
 let p3algoSprite: Sprite = null
 let p3y = 0
 let p3x = 0
