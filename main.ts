@@ -4,7 +4,7 @@ namespace SpriteKind {
     export const P3Steps = SpriteKind.create()
     export const P4Steps = SpriteKind.create()
 }
-function showP2Algo () {
+function showP2Algo() {
     sprites.destroyAllSpritesOfKind(SpriteKind.P2Steps)
     p2x = 156 - (player2algo.length - 1) * 8
     p2y = 14
@@ -15,12 +15,11 @@ function showP2Algo () {
     }
 }
 controller.player4.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
-    player4algo.push(assets.image`upArrow`)
+    player4algo.push(assets.image`upArrowSmall`)
     showP4Algo()
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    player1algo.push(assets.image`upArrow`)
-    showP1Algo()
+    agility.addPlayerStep(1, assets.image`upArrowSmall`)
 })
 controller.player3.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
     player3algo.pop()
@@ -30,7 +29,7 @@ controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Press
     player2algo.pop()
     showP2Algo()
 })
-function showP4Algo () {
+function showP4Algo() {
     sprites.destroyAllSpritesOfKind(SpriteKind.P4Steps)
     p4x = 156 - (player4algo.length - 1) * 8
     p4y = 106
@@ -45,10 +44,9 @@ controller.player4.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Press
     showP4Algo()
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    player1algo.pop()
-    showP1Algo()
+    agility.deletePlayerStep(1)
 })
-function checkP4Algo () {
+function checkP4Algo() {
     if (player4algo.length != pattern.length) {
         return false
     }
@@ -60,19 +58,7 @@ function checkP4Algo () {
     return true
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (checkP1Algo()) {
-        runPattern()
-        if (round + 1 < ROUNDS) {
-            startNewRound()
-        } else {
-            game.setGameOverMessage(true, "Player 1 Wins!")
-            game.gameOver(true)
-        }
-    } else {
-        info.player1.changeLifeBy(-1)
-        player1algo = []
-        showP1Algo()
-    }
+
 })
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (checkP2Algo()) {
@@ -84,7 +70,7 @@ controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         showP2Algo()
     }
 })
-function showP3Algo () {
+function showP3Algo() {
     sprites.destroyAllSpritesOfKind(SpriteKind.P3Steps)
     p3x = 4
     p3y = 106
@@ -95,18 +81,18 @@ function showP3Algo () {
     }
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    player1algo.push(assets.image`leftArrow`)
-    showP1Algo()
+    agility.addPlayerStep(1, assets.image`leftArrowSmall`)
 })
 controller.player3.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
-    player3algo.push(assets.image`rightArrow`)
+    player3algo.push(assets.image`rightArrowSmall`)
     showP3Algo()
 })
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
-    player2algo.push(assets.image`upArrow`)
+    player2algo.push(assets.image`upArrowSmall`)
     showP2Algo()
 })
-function checkP1Algo () {
+function checkP1Algo() {
+    /*
     if (player1algo.length != pattern.length) {
         return false
     }
@@ -116,16 +102,17 @@ function checkP1Algo () {
         }
     }
     return true
+    */
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    player1algo.push(assets.image`rightArrow`)
-    showP1Algo()
+    agility.addPlayerStep(1, assets.image`rightArrowSmall`)
 })
 controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
-    player2algo.push(assets.image`rightArrow`)
+    player2algo.push(assets.image`rightArrowSmall`)
     showP2Algo()
 })
-function startNewRound () {
+function startNewRound() {
+    let patterns: Image[][] = []
     round += 1
     pattern = patterns[round]
     game.splash("Round " + (round + 1), "Course has " + pattern.length + " steps")
@@ -146,14 +133,14 @@ controller.player4.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
     }
 })
 controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
-    player2algo.push(assets.image`leftArrow`)
+    player2algo.push(assets.image`leftArrowSmall`)
     showP2Algo()
 })
 controller.player4.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
-    player4algo.push(assets.image`leftArrow`)
+    player4algo.push(assets.image`leftArrowSmall`)
     showP4Algo()
 })
-function checkP3Algo () {
+function checkP3Algo() {
     if (player3algo.length != pattern.length) {
         return false
     }
@@ -174,7 +161,7 @@ controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         showP3Algo()
     }
 })
-function runPattern () {
+function runPattern() {
     patternSprite = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -197,9 +184,9 @@ function runPattern () {
     fbPlayer.follow(patternSprite, 25)
     for (let value of pattern) {
         patternSprite.setImage(value)
-        if (value.equals(assets.image`upArrow`)) {
+        if (value.equals(assets.image`upArrowSmall`)) {
             patternSprite.y += -20
-        } else if (value.equals(assets.image`leftArrow`)) {
+        } else if (value.equals(assets.image`leftArrowSmall`)) {
             patternSprite.x += -20
         } else {
             patternSprite.x += 20
@@ -207,7 +194,7 @@ function runPattern () {
         pause(1000)
     }
 }
-function checkP2Algo () {
+function checkP2Algo() {
     if (player2algo.length != pattern.length) {
         return false
     }
@@ -218,7 +205,7 @@ function checkP2Algo () {
     }
     return true
 }
-function printPattern (list: Image[]) {
+function printPattern(list: Image[]) {
     sprites.destroyAllSpritesOfKind(SpriteKind.Player)
     sprites.destroyAllSpritesOfKind(SpriteKind.P1Steps)
     sprites.destroyAllSpritesOfKind(SpriteKind.P2Steps)
@@ -231,9 +218,9 @@ function printPattern (list: Image[]) {
     fbPlayer.setPosition(currX, currY)
     fbPlayer.z = 99
     for (let value2 of list) {
-        if (value2.equals(assets.image`upArrow`)) {
+        if (value2.equals(assets.image`upArrowSmall`)) {
             currY += -20
-        } else if (value2.equals(assets.image`leftArrow`)) {
+        } else if (value2.equals(assets.image`leftArrowSmall`)) {
             currX += -20
         } else {
             currX += 20
@@ -242,7 +229,8 @@ function printPattern (list: Image[]) {
         projectile.setPosition(currX, currY)
     }
 }
-function showP1Algo () {
+function showP1Algo() {
+    /*
     sprites.destroyAllSpritesOfKind(SpriteKind.P1Steps)
     p1x = 4
     p1y = 14
@@ -251,17 +239,18 @@ function showP1Algo () {
         p1algoSprite.setPosition(p1x, p1y)
         p1x += 8
     }
+    */
 }
 controller.player4.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
-    player4algo.push(assets.image`rightArrow`)
+    player4algo.push(assets.image`rightArrowSmall`)
     showP4Algo()
 })
 controller.player3.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
-    player3algo.push(assets.image`leftArrow`)
+    player3algo.push(assets.image`leftArrowSmall`)
     showP3Algo()
 })
 controller.player3.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
-    player3algo.push(assets.image`upArrow`)
+    player3algo.push(assets.image`upArrowSmall`)
     showP3Algo()
 })
 let p1algoSprite: Sprite = null
@@ -270,8 +259,9 @@ let p1x = 0
 let projectile: Sprite = null
 let currY = 0
 let currX = 0
-let fbPlayer: Sprite = null
 let patternSprite: Sprite = null
+let round = 0
+let player1algo: number[] = []
 let p3algoSprite: Sprite = null
 let p3y = 0
 let p3x = 0
@@ -279,56 +269,32 @@ let p4algoSprite: Sprite = null
 let p4y = 0
 let p4x = 0
 let player3algo: Image[] = []
-let player1algo: Image[] = []
 let player4algo: Image[] = []
 let p2algoSprite: Sprite = null
 let p2y = 0
 let player2algo: Image[] = []
 let p2x = 0
-let round = 0
+let fbPlayer: Sprite = null
 let tile = 0
-let patterns: Image[][] = []
 let pattern: Image[] = []
-let ROUNDS = 0
-game.showLongText("Use up, left, and right to create an algorithm that matches the course!\\n \\nPress A to check it.\\n \\nPress B to erase the last step.", DialogLayout.Full)
-ROUNDS = 3
+let ROUNDS = 3
 pattern = []
-patterns = [[img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `]]
-patterns = []
 for (let index = 0; index < ROUNDS; index++) {
     pattern = []
     for (let index = 0; index < 6; index++) {
         tile = randint(0, 2)
         if (tile == 0) {
-            pattern.push(assets.image`upArrow`)
+            pattern.push(assets.image`upArrowSmall`)
         } else if (tile == 1) {
-            pattern.push(assets.image`leftArrow`)
+            pattern.push(assets.image`leftArrowSmall`)
         } else {
-            pattern.push(assets.image`rightArrow`)
+            pattern.push(assets.image`rightArrowSmall`)
         }
     }
-    patterns.push(pattern)
+    agility.addCourse("Random #" + agility.numCourses(), pattern)
 }
-round = -1
-startNewRound()
-info.player1.setLife(3)
-info.player2.setLife(3)
-info.player3.setLife(3)
-info.player4.setLife(3)
+scene.setBackgroundColor(7)
+game.showLongText("Use up, left, and right to create an algorithm that matches the course!\\n \\nPress A to check it.\\n \\nPress B to erase the last step.", DialogLayout.Full)
+fbPlayer = sprites.create(assets.image`player`, SpriteKind.Player)
+agility.setPlayerSprite(fbPlayer)
+agility.startNewRound()

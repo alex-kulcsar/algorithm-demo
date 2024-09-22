@@ -11,7 +11,10 @@
         "README.md",
         "assets.json",
         "images.g.jres",
-        "images.g.ts"
+        "images.g.ts",
+        "agility.ts",
+        "tilemap.g.jres",
+        "tilemap.g.ts"
     ],
     "testFiles": [
         "test.ts"
@@ -23,5 +26,5 @@
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }
